@@ -28,7 +28,7 @@ class Controller_Lists extends Controller_Rest
         if(!isset($_POST['titulo'])){
             $json = $this->response(array(
                 'code' => 400,
-                'message' => 'parametro incorrecto, se necesita que el parametro se llame titulo'
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame titulo'
             ));
             return $json;
         }
@@ -50,7 +50,7 @@ class Controller_Lists extends Controller_Rest
 
             $json = $this->response(array(
                 'code' => 200,
-                'message' => 'lista creada',
+                'message' => 'Lista creada',
                 'titulo' => $list
                 
             ));            
