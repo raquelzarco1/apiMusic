@@ -3,169 +3,71 @@ use \Firebase\JWT\JWT;
 
 class Controller_Notice extends Controller_Rest 
 {   
+protected function autorizate(){
+        try{
+            $keyToken = "oliasdfkljasdfoujbasdfkjbsfadvkljhberwioyhgvdsfajhlbvaerfuygcvasjhbqwefolakasekhjadsfilkhjfadib";
+            $header = apache_request_headers();
+            $token = $header['Authorization'];
+            $decodedmyToken = JWT::decode($token, $keyToken, array('HS256'));
+            $userInToken = Model_Users::find($decodedmyToken->id);
+
+            if($userInToken == null){                      
+                return 'No se reconoce el token';
+            }else{  
+                return $userInToken;
+            }
+        }
+        catch (Exception $e){
+            return 'No se reconoce el token';
+        }
+    }
+
     public function post_createNew()
     {
-        try {
-            if ( ! isset($_POST['title'])) 
-            {
-                $json = $this->response(array(
-                    'code' => 400,
-                    'message' => 'parametro incorrecto, se necesita que el parametro se llame title',
-                    'data' => null
-                ));
-
-                return $json;
-            }
-
-            $newNotice = Model_News::find('all', ['where' => ['title' => $_POST['title']]]);
-                       
-                $input = $_POST;
-                $new = new Model_News();
-                $new->title = $input['title']
-                $new->save();
-
-                $json = $this->response(array(
-                    'code' => 200,
-                    'message' => 'Cancion creada',
-                    'data' => $song
-                ));
-       		      return $json;  
-        } 
-
-
-        catch (Exception $e) 
-        {
-            $json = $this->response(array(
-                'code' => 500,
-                'message' => 'error interno del servidor',
-                'data' => null
-            ));
-
-            return $json;
-        }        
-    }
-
-    public function post_editNew()
-    {
-        if ( ! isset($_POST['title'])) 
-        {
+        if(!isset($_POST['title']) || !isset($_POST['id_user'])){
             $json = $this->response(array(
                 'code' => 400,
-                'message' => 'necesitas un parametro se llame title',
-                'data' => null
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame title,artist,reproducciones o url'
             ));
-
             return $json;
         }
-
-        $input = $_POST;
-        $new = new Model_News();
-        $new->title = $input['title']
-        $new->save();
-
-        $json = $this->response(array(
+        
+        $userInToken = self::autorizate();
+        if (! isset($userInToken->id)){
+            $json = $this->response(array(
                 'code' => 200,
-                'message' => 'Cancion editada',
-                'data' => $new->title
-        ));
-        return $json;
+                'message' => 'No ha podido ser autenticado',
+                'data' => $userInToken
+            ));
+            return $json;
+        }else{
+            $input = $_POST;
+            $noticias = new Model_Noticias();
+            $noticias->title = $input['title'];
+            $noticias->id_users = $input['id_users'];
+        
+            $noticias->id_users = $userInToken->id;                
+            $noticias->save();          
 
+            $json = $this->response(array(
+                'code' => 200,
+                'message' => 'Noticia creada',
+                'titulo' => $noticias
+                
+            ));            
+            return $json;  
         }
+           
+    }
 
-    public function get_playOneSong()
+    public function get_news()
     {
-    	$tokenDecoded = self::checkToken();
-    	if ($tokenDecoded != null){
-	    	if ( ! isset($_GET['id'])) 
-	        {
-	            $json = $this->response(array(
-	                'code' => 400,
-	                'message' => 'parametro incorrecto, se necesita que el parametro id valido',
-	                'data' => null
-	            ));
-
-	            return $json;
-	        }else{
-		        $song = Model_Cancion::find($_GET['id']);
-		        if(empty($song)){
-		        	$json = $this->response(array(
-			            'code' => 400,
-			            'message' => 'Canción solicitada no existe',
-			            'data' => null
-			        ));
-
-			        return $json; 
-		        }else{
-		        	$sumador = $song->playsCount + 1;
-			        $song->playsCount = $sumador;
-			        $song->save();
-
-			        $listToAdd = Model_List::find('all', ['where' => ['id_user' =>$tokenDecoded, 'systemList' => 1]]);
-			        $songToAdd = Model_Cancion::find('all', ['where' => ['id' =>$_GET['id']]]);
-			        $dataList = Arr::reindex($listToAdd);
-			        $songList = Arr::reindex($songToAdd);
-
-			        $add = new Model_Contiene();
-            		$add->id_cancion = $songList[0]->id;
-            		$add->id_lista = $dataList[0]->id;
-            		$add->createdAt = time();
-            		$add->save();
-
-			        $json = $this->response(array(
-			            'code' => 200,
-			            'message' => 'Mostrando cancion solicitada',
-			            'data' => $song
-			        ));
-
-			        return $json;  
-		    	}
-		    }
-		}else{
-			$json = $this->response(array(
-			            'code' => 200,
-			            'message' => 'Autenticacion fallida',
-			            'data' => $song
-			        ));
-			return $json; 
-		}
+        $new = Model_Noticias::find('all');
+        return $new;
     }
 
-    public function get_songs(){
-		$song = Model_Cancion::find('all');
 
-        $json = $this->response(array(
-            'code' => 200,
-            'message' => 'mostrando todas las canciones',
-            'data' => $song
-        ));
 
-        return $json; 
-    }
 
-    public function post_delete()
-    {
-        $song = Model_Cancion::find($_POST['id']);
-        $song->delete();
-
-        $json = $this->response(array(
-            'code' => 200,
-            'message' => 'cancion borrado',
-            'name' => $song
-        ));
-
-        return $json;
-    }
-
-    public function get_views()
-   	{
-		$song = Model_Cancion::find('all',array('order_by' => array('playsCount' => 'desc')));
-
-        $json = $this->response(array(
-            'code' => 200,
-            'message' => 'mostrando todas las canciones',
-            'data' => Arr::reindex($song)
-        ));
-
-        return $json; 
-   	} 
 }
+

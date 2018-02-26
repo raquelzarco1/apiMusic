@@ -2,7 +2,7 @@
 
 use \Firebase\JWT\JWT;
 
-class Controller_Lists extends Controller_Rest
+class Controller_lists extends Controller_Rest
 {	
 	 protected function autorizate(){
     	try{
@@ -23,12 +23,12 @@ class Controller_Lists extends Controller_Rest
         }
     }
 
-	public function post_createList()
+	public function post_createlists()
     {
-        if(!isset($_POST['titulo'])){
+        if(!isset($_POST['title']) || !isset($_POST['id_users'])){
             $json = $this->response(array(
                 'code' => 400,
-                'message' => 'Parametro incorrecto, se necesita que el parametro se llame titulo'
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame title'
             ));
             return $json;
         }
@@ -43,15 +43,15 @@ class Controller_Lists extends Controller_Rest
             return $json;
     	}else{
             $input = $_POST;
-            $list = new Model_Lists();
-            $list->title = $input['titulo'];
-            $list->id_users = $userInToken->id;	            
-            $list->save();          
+            $lists = new Model_Lists();
+            $lists->title = $input['title'];
+            $lists->id_users = $userInToken->id;	            
+            $lists->save();          
 
             $json = $this->response(array(
                 'code' => 200,
-                'message' => 'Lista creada',
-                'titulo' => $list
+                'message' => 'lista creada',
+                'titulo' => $lists
                 
             ));            
             return $json;  
@@ -63,5 +63,67 @@ class Controller_Lists extends Controller_Rest
     {
         $lists = Model_Lists::find('all');
         return $lists;
+    }
+
+
+      public function post_delete()
+    {
+        if ( ! isset($_POST['id'])) 
+        {
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame id',
+                'data' => null
+            ));
+
+            return $json;
+        }
+
+        $lists = Model_Lists::find($_POST['id']);
+        $lists->delete();
+        
+        $json = $this->response(array(
+            'code' => 200,
+            'message' => 'usuario borrado',
+            'title' => $lists
+        ));       
+        return $json;
+    }
+
+    public function post_changeTitle()
+    {
+    try {
+
+        if ( ! isset($_POST['title'])) 
+        {
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame title',
+                'data' => null
+            ));
+
+            return $json;
+        }            
+            $input = $_POST;
+            $lists = Model_Lists::find($lists->id);
+            $lists->title = $_POST['title'];
+            $lists->save();
+
+            $json = $this->response(array(
+                'code' => 200,
+                'message' => 'Lista modificada',
+                'data' => $lists
+            ));
+            return $json
+
+            } 
+            catch (Exception $e){
+            $json = $this->response(array(
+                'code' => 500,
+                'message' => $e->getMessage()
+            ));         
+            return $json;      
+            }   
+        }
     }
 }
