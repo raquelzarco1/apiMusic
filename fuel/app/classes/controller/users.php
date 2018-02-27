@@ -208,23 +208,7 @@ class Controller_Users extends Controller_Rest
     	}  
     }
 
-    public function post_followUser()
-    {
-        if(!isset($_POST['id_seguidor']) || !isset($_POST['id_seguido'])){
-            $json = $this->response(array(
-                'code' => 400,
-                'message' => 'parametro incorrecto, se necesita que el parametro se llame pass',
-                'data' => null
-            ));  
-        }
-
-        $add = new Model_Users();
-        $user-> $id = $input['id'];
-        $users->$id_seguido =  $input['id_seguido'];
-        $users->save();
-
-    }
-
+    
     public function post_addUser()
     {
         if(!isset($_POST['id_seguidor']) || !isset($_POST['id_seguido'])){
@@ -236,8 +220,10 @@ class Controller_Users extends Controller_Rest
             return $json;
         }
 
+        $userInToken = self::autorizate();
+
         $add = new Model_Siguen();
-        $add-> $id_seguido = $input['id_seguido'];
+        $add-> $id_seguido = $userInToken->id;
         $add->$id_seguidor =  $input['id_seguidor'];
         $add->save();
 

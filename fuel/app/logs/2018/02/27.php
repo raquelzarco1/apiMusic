@@ -76,3 +76,7 @@ WARNING - 2018-02-27 11:13:59 --> Fuel\Core\Fuel::init - The configured locale e
 WARNING - 2018-02-27 12:44:00 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2018-02-27 12:44:24 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 ERROR - 2018-02-27 12:44:24 --> Notice - Undefined variable: songs in /var/www/html/apiMusic/fuel/app/classes/controller/lists.php on line 150
+WARNING - 2018-02-27 13:15:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 13:16:16 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 13:16:40 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 13:17:12 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
