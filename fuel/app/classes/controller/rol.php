@@ -95,13 +95,13 @@ class Controller_Rol extends Controller_Rest
             ));
             return $json;  
     }
-
+    
+ //Esta realmente sobra
      protected function beAdmin(){
         try{
               if($rol->id == 1){
-                $rol->tipe =='admin'
+                $rol->tipe =='admin';
                 $rol->save();
-              }
             }
         }
         catch (Exception $e){

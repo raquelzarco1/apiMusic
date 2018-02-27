@@ -41,10 +41,10 @@ class Controller_Users extends Controller_Rest
         }       
     }
 
-    public function post_loginUser()
+    public function get_loginUser()
     {
         try {
-            if(!isset($_POST['name']) || !isset($_POST['pass'])){
+            if(!isset($_GET['name']) || !isset($_GET['pass'])){
                 
                 $json = $this -> response(array(
                     'code' => 400,
@@ -55,8 +55,8 @@ class Controller_Users extends Controller_Rest
             } else {
                 $users = Model_Users::find('all', array(
                     'where' => array(
-                        array('username' => $_POST['name']),
-                        array('password'=> $_POST['pass'])
+                        array('username' => $_GET['name']),
+                        array('password'=> $_GET['pass'])
                     )             
                 ));
 
@@ -87,7 +87,7 @@ class Controller_Users extends Controller_Rest
                         'message' => 'usuario logeado',
                         'data' => array(
                             'token' => $jwt,
-                            'name' => $_POST['name']
+                            'name' => $_GET['name']
                         )
                     ));
                     
@@ -131,26 +131,20 @@ class Controller_Users extends Controller_Rest
     
     public function post_delete()
     {
-        if ( ! isset($_POST['id'])) 
-        {
+    
+    $userInToken = self::autorizate();
+  
+          if($userInToken->id_rol != 1){
+            $user = Model_Users::find($userInToken->id);
+            $user->delete();
+            
             $json = $this->response(array(
-                'code' => 400,
-                'message' => 'parametro incorrecto, se necesita que el parametro se llame id',
-                'data' => null
-            ));
-
+                'code' => 200,
+                'message' => 'usuario borrado',
+                'name' => $user
+            ));       
             return $json;
         }
-
-        $user = Model_Users::find($_POST['id']);
-        $user->delete();
-        
-        $json = $this->response(array(
-            'code' => 200,
-            'message' => 'usuario borrado',
-            'name' => $user
-        ));       
-        return $json;
     }
      
     public function post_changePass()
@@ -208,7 +202,7 @@ class Controller_Users extends Controller_Rest
     	}  
     }
 
-    
+    /*
     public function post_addUser()
     {
         if(!isset($_POST['id_seguidor']) || !isset($_POST['id_seguido'])){
@@ -235,7 +229,7 @@ class Controller_Users extends Controller_Rest
             ));            
             return $json;
     }
-    
+    */
 
     
 }

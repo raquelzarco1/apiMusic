@@ -136,7 +136,7 @@ class Controller_lists extends Controller_Rest
             return $json;
         }  
     }
-
+/*
     public function post_noReproductionsList()
     {
         if(!isset($_POST['id_song']) || !isset($_POST['id_list'])){
@@ -157,5 +157,29 @@ class Controller_lists extends Controller_Rest
         return $add;
         }  
     }
+    */
+ public function post_addSongs()
+    {
+        if(!isset($_POST['id_song']) || !isset($_POST['id_list'])){
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame id_lists'
+            ));
 
+            return $json;
+        }
+
+        $add = new Model_Contienen();
+        $add->id_list =  $_POST['id_list'];
+        $add->id_song = $_POST['id_song'];
+        $add->save();
+
+        $json = $this->response(array(
+                'code' => 200,
+                'message' => 'Cancion añadida',
+                'titulo' => $add
+                
+            ));            
+            return $json;
+    }
 }

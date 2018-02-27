@@ -92,32 +92,9 @@ class Controller_Songs extends Controller_Rest
         ));       
         return $json;
     }
-    public function post_addSongs()
-    {
-        if(!isset($_POST['id_song']) || !isset($_POST['id_list'])){
-            $json = $this->response(array(
-                'code' => 400,
-                'message' => 'Parametro incorrecto, se necesita que el parametro se llame id_lists'
-            ));
-
-            return $json;
-        }
-
-        $add = new Model_Contienen();
-        $add-> $id_song = $input['id_song'];
-        $add->$id_list =  $input['id_list'];
-        $add->save();
-
-        $json = $this->response(array(
-                'code' => 200,
-                'message' => 'Cancion añadida',
-                'titulo' => $songs
-                
-            ));            
-            return $json;
-    }
-
-    public function get_playSong()
+   
+/*
+    public function post_playSong()
     {
 
         if ( ! isset($_POST['id'])) 
@@ -130,10 +107,6 @@ class Controller_Songs extends Controller_Rest
 
             return $json;
         }
-
-        $playMode = true;
-        if ($playMode == true) {
-
             $input = $_POST;
             $songs = new Model_Songs();
             $songs->id = $input['id'];
@@ -146,7 +119,7 @@ class Controller_Songs extends Controller_Rest
             'name' => $songs
         ));       
         return $json;
-        }
+        
     }
-    
+    */
 }
