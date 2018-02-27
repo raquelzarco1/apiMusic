@@ -202,10 +202,10 @@ class Controller_Users extends Controller_Rest
     	}  
     }
 
-    /*
+    
     public function post_addUser()
     {
-        if(!isset($_POST['id_seguidor']) || !isset($_POST['id_seguido'])){
+        if(!isset($_POST['id_seguido'])){
             $json = $this->response(array(
                 'code' => 400,
                 'message' => 'Parametro incorrecto, se necesita que el parametro se llame id_seguidor o id_seguido'
@@ -217,19 +217,16 @@ class Controller_Users extends Controller_Rest
         $userInToken = self::autorizate();
 
         $add = new Model_Siguen();
-        $add-> $id_seguido = $userInToken->id;
-        $add->$id_seguidor =  $input['id_seguidor'];
+        $add->id_seguido = $_POST['id_seguido'];
+        $add->id_seguidor =  $userInToken->id;
         $add->save();
 
         $json = $this->response(array(
                 'code' => 200,
-                'message' => 'Cancion añadida',
-                'titulo' => $songs
+                'message' => 'usuario seguido',
+                'titulo' => $add
                 
             ));            
             return $json;
     }
-    */
-
-    
 }

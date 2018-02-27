@@ -159,3 +159,70 @@ WARNING - 2018-02-27 20:34:53 --> Fuel\Core\Fuel::init - The configured locale e
 WARNING - 2018-02-27 20:35:08 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 ERROR - 2018-02-27 20:35:08 --> 23000 - SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'title' cannot be null with query: "INSERT INTO `songs` (`title`, `artist`, `reproducciones`, `url`, `id`) VALUES (null, null, 1, null, '1')" in /var/www/html/apiMusic/fuel/core/classes/database/pdo/connection.php on line 253
 WARNING - 2018-02-27 20:35:16 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:01:09 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:30 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:33 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:34 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:34 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:34 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:34 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:36 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:36 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:37 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:06:39 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:09:06 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:09:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:10:00 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:10:28 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:10:46 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:10:57 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:11:03 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:11:33 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:11:33 --> 23000 - SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`apiMusic`.`contienen`, CONSTRAINT `claveAjenaListaContienen` FOREIGN KEY (`id_list`) REFERENCES `lists` (`id`)) with query: "INSERT INTO `contienen` (`id_list`, `id_song`) VALUES ('1', '1')" in /var/www/html/apiMusic/fuel/core/classes/database/pdo/connection.php on line 253
+WARNING - 2018-02-27 22:12:13 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:12:22 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:12:54 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:13:11 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:13:27 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:13:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:14:13 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:14:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:19:12 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:21:22 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:21:31 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:21:40 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:21:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:22:24 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:22:40 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:22:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:23:17 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:26:10 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:26:13 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:26:25 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:26:25 --> Notice - Trying to get property of non-object in /var/www/html/apiMusic/fuel/app/classes/controller/users.php on line 220
+WARNING - 2018-02-27 22:27:09 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:27:09 --> Notice - Undefined variable: id_seguido in /var/www/html/apiMusic/fuel/app/classes/controller/users.php on line 220
+WARNING - 2018-02-27 22:28:19 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:28:19 --> Notice - Undefined variable: input in /var/www/html/apiMusic/fuel/app/classes/controller/users.php on line 220
+WARNING - 2018-02-27 22:28:33 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:28:33 --> Notice - Undefined variable: id_seguido in /var/www/html/apiMusic/fuel/app/classes/controller/users.php on line 220
+WARNING - 2018-02-27 22:28:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:28:59 --> Notice - Undefined variable: id_seguido in /var/www/html/apiMusic/fuel/app/classes/controller/users.php on line 220
+WARNING - 2018-02-27 22:29:15 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:29:15 --> Notice - Undefined variable: id_seguido in /var/www/html/apiMusic/fuel/app/classes/controller/users.php on line 220
+WARNING - 2018-02-27 22:29:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:29:39 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:29:39 --> Notice - Undefined variable: id_seguido in /var/www/html/apiMusic/fuel/app/classes/controller/users.php on line 220
+WARNING - 2018-02-27 22:30:11 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:31:02 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:33:07 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:33:07 --> 23000 - SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`apiMusic`.`siguen`, CONSTRAINT `claveAjenSeguidoaSiguen` FOREIGN KEY (`id_seguido`) REFERENCES `users` (`id`) ON UPDATE CASCADE) with query: "INSERT INTO `siguen` (`id_seguidor`, `id_seguido`) VALUES ('2', '9')" in /var/www/html/apiMusic/fuel/core/classes/database/pdo/connection.php on line 253
+WARNING - 2018-02-27 22:33:27 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:33:56 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:33:56 --> 23000 - SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-3' for key 'PRIMARY' with query: "INSERT INTO `siguen` (`id_seguidor`, `id_seguido`) VALUES ('2', '3')" in /var/www/html/apiMusic/fuel/core/classes/database/pdo/connection.php on line 253
+WARNING - 2018-02-27 22:34:12 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:34:26 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-27 22:34:36 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-27 22:34:36 --> 23000 - SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`apiMusic`.`contienen`, CONSTRAINT `claveAjenaListaContienen` FOREIGN KEY (`id_list`) REFERENCES `lists` (`id`)) with query: "INSERT INTO `contienen` (`id_list`, `id_song`) VALUES ('1', '1')" in /var/www/html/apiMusic/fuel/core/classes/database/pdo/connection.php on line 253

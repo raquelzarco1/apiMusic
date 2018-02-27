@@ -51,11 +51,17 @@ class Model_Users extends Orm\Model
     )
     );
 
-
     protected static $_has_many = array(
     'noticiasN' => array(
         'key_from' => 'id',
         'model_to' => 'Model_Noticias',
+        'key_to' => 'id_users',
+        'cascade_save' => true,
+        'cascade_delete' => false,
+        ),
+    'listasN' => array(
+        'key_from' => 'id',
+        'model_to' => 'Model_Lists',
         'key_to' => 'id_users',
         'cascade_save' => true,
         'cascade_delete' => false,

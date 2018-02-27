@@ -28,7 +28,7 @@ class Model_Songs extends Orm\Model
         'key_through_to' => 'id_song', // column 2 from the table in between, should match a users.id
         'model_to' => 'Model_Lists',
         'key_to' => 'id',
-        'cascade_save' => true,
+        'cascade_save' => false,
         'cascade_delete' => false,
     )
     );

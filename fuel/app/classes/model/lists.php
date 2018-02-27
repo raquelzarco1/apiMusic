@@ -22,6 +22,16 @@ class Model_Lists extends Orm\Model
         'key_through_to' => 'id_list', // column 2 from the table in between, should match a users.id
         'model_to' => 'Model_Songs',
         'key_to' => 'id',
+        'cascade_save' => false,
+        'cascade_delete' => false,
+    )
+    );
+
+    protected static $_belongs_to = array(
+    'rol' => array(
+        'key_from' => 'id_users',
+        'model_to' => 'Model_Users',
+        'key_to' => 'id',
         'cascade_save' => true,
         'cascade_delete' => false,
     )
