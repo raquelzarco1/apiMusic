@@ -95,4 +95,22 @@ class Controller_Rol extends Controller_Rest
             ));
             return $json;  
     }
+
+     protected function beAdmin(){
+        try{
+              if($rol->id == 1){
+                $rol->tipe =='admin'
+                $rol->save();
+              }
+            }
+        }
+        catch (Exception $e){
+            $json = $this->response(array(
+                'code' => 500,
+                'message' => $e->getMessage()
+            ));         
+            return $json;
+        }
+    }
+
 }

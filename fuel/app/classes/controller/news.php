@@ -3,7 +3,7 @@ use \Firebase\JWT\JWT;
 
 class Controller_Notice extends Controller_Rest 
 {   
-protected function autorizate(){
+ protected function autorizate(){
         try{
             $keyToken = "oliasdfkljasdfoujbasdfkjbsfadvkljhberwioyhgvdsfajhlbvaerfuygcvasjhbqwefolakasekhjadsfilkhjfadib";
             $header = apache_request_headers();
@@ -24,10 +24,10 @@ protected function autorizate(){
 
     public function post_createNew()
     {
-        if(!isset($_POST['title']) || !isset($_POST['id_user'])){
+        if(!isset($_POST['title']) || !isset($_POST['id_users'])){
             $json = $this->response(array(
                 'code' => 400,
-                'message' => 'Parametro incorrecto, se necesita que el parametro se llame title,artist,reproducciones o url'
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame title o id_users'
             ));
             return $json;
         }
@@ -42,17 +42,15 @@ protected function autorizate(){
             return $json;
         }else{
             $input = $_POST;
-            $noticias = new Model_Noticias();
-            $noticias->title = $input['title'];
-            $noticias->id_users = $input['id_users'];
-        
-            $noticias->id_users = $userInToken->id;                
-            $noticias->save();          
+            $news = new Model_Songs();
+            $news->title = $input['title'];
+            $news->id_users = $userInToken->id;                
+            $news->save();          
 
             $json = $this->response(array(
                 'code' => 200,
                 'message' => 'Noticia creada',
-                'titulo' => $noticias
+                'titulo' => $news
                 
             ));            
             return $json;  
@@ -62,9 +60,36 @@ protected function autorizate(){
 
     public function get_news()
     {
-        $new = Model_Noticias::find('all');
-        return $new;
+        $news = Model_Noticias::find('all');
+        return $news;
     }
+
+
+     public function post_delete()
+    {
+        if ( ! isset($_POST['id'])) 
+        {
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame id',
+                'data' => null
+            ));
+
+            return $json;
+        }
+
+        $news = Model_Noticias::find($_POST['id']);
+        $news->delete();
+        
+        $json = $this->response(array(
+            'code' => 200,
+            'message' => 'Noticia borrada',
+            'name' => $news
+        ));       
+        return $json;
+    }
+
+
 
 
 

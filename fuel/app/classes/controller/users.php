@@ -183,7 +183,7 @@ class Controller_Users extends Controller_Rest
         	$json = $this->response(array(
                 'code' => 200,
                 'message' => 'No ha podido ser autenticado',
-                'data' => $userInToken->body
+                'data' => $userInToken
             ));
             return $json;
         }
@@ -207,5 +207,49 @@ class Controller_Users extends Controller_Rest
             return $json;
     	}  
     }
+
+    public function post_followUser()
+    {
+        if(!isset($_POST['id_seguidor']) || !isset($_POST['id_seguido'])){
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame pass',
+                'data' => null
+            ));  
+        }
+
+        $add = new Model_Users();
+        $user-> $id = $input['id'];
+        $users->$id_seguido =  $input['id_seguido'];
+        $users->save();
+
+    }
+
+    public function post_addUser()
+    {
+        if(!isset($_POST['id_seguidor']) || !isset($_POST['id_seguido'])){
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame id_seguidor o id_seguido'
+            ));
+
+            return $json;
+        }
+
+        $add = new Model_Siguen();
+        $add-> $id_seguido = $input['id_seguido'];
+        $add->$id_seguidor =  $input['id_seguidor'];
+        $add->save();
+
+        $json = $this->response(array(
+                'code' => 200,
+                'message' => 'Cancion añadida',
+                'titulo' => $songs
+                
+            ));            
+            return $json;
+    }
+    
+
     
 }

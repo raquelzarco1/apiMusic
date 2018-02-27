@@ -4,7 +4,7 @@ use \Firebase\JWT\JWT;
 
 class Controller_lists extends Controller_Rest
 {	
-protected function autorizate(){
+ protected function autorizate(){
         try{
             $keyToken = "oliasdfkljasdfoujbasdfkjbsfadvkljhberwioyhgvdsfajhlbvaerfuygcvasjhbqwefolakasekhjadsfilkhjfadib";
             $header = apache_request_headers();
@@ -23,41 +23,41 @@ protected function autorizate(){
         }
     }
 
-    public function post_createList()
+   public function post_createLists()
     {
-        if(!isset($_POST['title']) || !isset($_POST['id_users'])){
-            $json = $this->response(array(
-                'code' => 400,
-                'message' => 'Parametro incorrecto, se necesita que el parametro se llame title,artist,reproducciones o url'
-            ));
-            return $json;
-        }
-        
-        $userInToken = self::autorizate();
-        if (! isset($userInToken->id)){
-            $json = $this->response(array(
-                'code' => 200,
-                'message' => 'No ha podido ser autenticado',
-                'data' => $userInToken
-            ));
-            return $json;
-        }else{
+        try {
+            if(!isset($_POST['title']) || !isset($_POST['id_users'])){
+                $json = $this->response(array(
+                    'code' => 400,
+                    'message' => 'Se necesitan mas parametros'
+                ));
+                return $json;
+            }
+            
             $input = $_POST;
-            $lists = new Model_lists();
+            $lists = new Model_Lists();
             $lists->title = $input['title'];
-            $lists->id_users = $userInToken->id;                
-            $lists->save();          
+            $lists->id_users = $input['id_users'];
+            $lists->save(); 
 
             $json = $this->response(array(
                 'code' => 200,
-                'message' => 'Lista creada',
-                'titulo' => $lists
-                
+                'message' => 'lista creada',
+                'data' => $lists
+                     
             ));            
             return $json;  
         }
-           
+        
+        catch (Exception $e){
+            $json = $this->response(array(
+                'code' => 500,
+                'message' => $e->getMessage()
+            ));         
+            return $json;
+        }       
     }
+
 
     public function get_lists()
     {
@@ -65,8 +65,7 @@ protected function autorizate(){
         return $lists;
     }
 
-
-      public function post_delete()
+     public function post_delete()
     {
         if ( ! isset($_POST['id'])) 
         {
@@ -85,13 +84,23 @@ protected function autorizate(){
         $json = $this->response(array(
             'code' => 200,
             'message' => 'lista borrada',
-            'title' => $lists
+            'name' => $lists
         ));       
         return $json;
     }
 
     public function post_changeTitle()
     {
+        if ( ! isset($_POST['titleOld'])) 
+        {
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame title',
+                'data' => null
+            ));
+
+            return $json;
+        }
 
         if ( ! isset($_POST['title'])) 
         {
@@ -102,20 +111,51 @@ protected function autorizate(){
             ));
 
             return $json;
-        }            
-           
+        }
 
-            $input = $_POST;
-            $lists = Model_Lists::find($lists->id);
+        $input = $_POST;
+        $userInToken = self::autorizate();
+       
+        if ($_POST['titleOld'] != $_POST['title'] ){
+            $lists = Model_Lists::find('all');
             $lists->title = $_POST['title'];
             $lists->save();
 
             $json = $this->response(array(
                 'code' => 200,
-                'message' => 'Lista modificada',
+                'message' => 'contraseña modificada',
                 'data' => $lists
             ));
-            return $json
-    }      
+            return $json;
+        }else{
+            $json = $this->response(array(
+                'code' => 500,
+                'message' => 'No ha podido ser autenticado',
+                'data' => null
+            ));
+            return $json;
+        }  
     }
+
+    public function post_noReproductionsList()
+    {
+        if(!isset($_POST['id_song']) || !isset($_POST['id_list'])){
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame id_lists'
+            ));
+
+            return $json;
+        }
+        if ($songs->reproducciones == 0) {
+        
+        $add = new Model_Contienen();
+        $add-> $id_song = $input['id_song'];
+        $add->$id_list =  $input['id_list'];
+        $add->save();
+
+        return $add;
+        }  
+    }
+
 }

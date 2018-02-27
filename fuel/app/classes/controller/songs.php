@@ -68,5 +68,85 @@ class Controller_Songs extends Controller_Rest
         return $songs;
     }
 
+
+     public function post_delete()
+    {
+        if ( ! isset($_POST['id'])) 
+        {
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame id',
+                'data' => null
+            ));
+
+            return $json;
+        }
+
+        $songs = Model_Songs::find($_POST['id']);
+        $songs->delete();
+        
+        $json = $this->response(array(
+            'code' => 200,
+            'message' => 'Cancion borrada',
+            'name' => $songs
+        ));       
+        return $json;
+    }
+    public function post_addSongs()
+    {
+        if(!isset($_POST['id_song']) || !isset($_POST['id_list'])){
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame id_lists'
+            ));
+
+            return $json;
+        }
+
+        $add = new Model_Contienen();
+        $add-> $id_song = $input['id_song'];
+        $add->$id_list =  $input['id_list'];
+        $add->save();
+
+        $json = $this->response(array(
+                'code' => 200,
+                'message' => 'Cancion añadida',
+                'titulo' => $songs
+                
+            ));            
+            return $json;
+    }
+
+    public function get_playSong()
+    {
+
+        if ( ! isset($_POST['id'])) 
+        {
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame id',
+                'data' => null
+            ));
+
+            return $json;
+        }
+
+        $playMode = true;
+        if ($playMode == true) {
+
+            $input = $_POST;
+            $songs = new Model_Songs();
+            $songs->id = $input['id'];
+            $songs->reproducciones += 1;
+            $songs->save();
+
+            $json = $this->response(array(
+            'code' => 200,
+            'message' => 'Cancion reporducida',
+            'name' => $songs
+        ));       
+        return $json;
+        }
+    }
     
 }
