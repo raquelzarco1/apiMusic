@@ -4,53 +4,53 @@ use \Firebase\JWT\JWT;
 
 class Controller_lists extends Controller_Rest
 {	
-	 protected function autorizate(){
-    	try{
-	    	$keyToken = "oliasdfkljasdfoujbasdfkjbsfadvkljhberwioyhgvdsfajhlbvaerfuygcvasjhbqwefolakasekhjadsfilkhjfadib";
-	        $header = apache_request_headers();
-	        $token = $header['Authorization'];
-	        $decodedmyToken = JWT::decode($token, $keyToken, array('HS256'));
-	        $userInToken = Model_Users::find($decodedmyToken->id);
+protected function autorizate(){
+        try{
+            $keyToken = "oliasdfkljasdfoujbasdfkjbsfadvkljhberwioyhgvdsfajhlbvaerfuygcvasjhbqwefolakasekhjadsfilkhjfadib";
+            $header = apache_request_headers();
+            $token = $header['Authorization'];
+            $decodedmyToken = JWT::decode($token, $keyToken, array('HS256'));
+            $userInToken = Model_Users::find($decodedmyToken->id);
 
-	        if($userInToken == null){	        	       
-	            return 'No se reconoce el token';
-	        }else{  
-	            return $userInToken;
-	        }
-    	}
-    	catch (Exception $e){
+            if($userInToken == null){                      
+                return 'No se reconoce el token';
+            }else{  
+                return $userInToken;
+            }
+        }
+        catch (Exception $e){
             return 'No se reconoce el token';
         }
     }
 
-	public function post_createlists()
+    public function post_createList()
     {
         if(!isset($_POST['title']) || !isset($_POST['id_users'])){
             $json = $this->response(array(
                 'code' => 400,
-                'message' => 'Parametro incorrecto, se necesita que el parametro se llame title'
+                'message' => 'Parametro incorrecto, se necesita que el parametro se llame title,artist,reproducciones o url'
             ));
             return $json;
         }
         
         $userInToken = self::autorizate();
-    	if (! isset($userInToken->id)){
-        	$json = $this->response(array(
+        if (! isset($userInToken->id)){
+            $json = $this->response(array(
                 'code' => 200,
                 'message' => 'No ha podido ser autenticado',
                 'data' => $userInToken
             ));
             return $json;
-    	}else{
+        }else{
             $input = $_POST;
-            $lists = new Model_Lists();
+            $lists = new Model_lists();
             $lists->title = $input['title'];
-            $lists->id_users = $userInToken->id;	            
+            $lists->id_users = $userInToken->id;                
             $lists->save();          
 
             $json = $this->response(array(
                 'code' => 200,
-                'message' => 'lista creada',
+                'message' => 'Lista creada',
                 'titulo' => $lists
                 
             ));            
@@ -84,7 +84,7 @@ class Controller_lists extends Controller_Rest
         
         $json = $this->response(array(
             'code' => 200,
-            'message' => 'usuario borrado',
+            'message' => 'lista borrada',
             'title' => $lists
         ));       
         return $json;
@@ -92,7 +92,6 @@ class Controller_lists extends Controller_Rest
 
     public function post_changeTitle()
     {
-    try {
 
         if ( ! isset($_POST['title'])) 
         {
@@ -104,6 +103,8 @@ class Controller_lists extends Controller_Rest
 
             return $json;
         }            
+           
+
             $input = $_POST;
             $lists = Model_Lists::find($lists->id);
             $lists->title = $_POST['title'];
@@ -115,15 +116,6 @@ class Controller_lists extends Controller_Rest
                 'data' => $lists
             ));
             return $json
-
-            } 
-            catch (Exception $e){
-            $json = $this->response(array(
-                'code' => 500,
-                'message' => $e->getMessage()
-            ));         
-            return $json;      
-            }   
-        }
+    }      
     }
 }

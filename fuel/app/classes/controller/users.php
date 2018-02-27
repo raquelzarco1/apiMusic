@@ -207,24 +207,5 @@ class Controller_Users extends Controller_Rest
             return $json;
     	}  
     }
-
-    public function get_OneUser()
-    {
-        $users = Model_Users::find('all', ['where' => ['id' => $_GET['id']]]);
-
-        foreach ($users as $key => $value) {
-                $show[] = $value->username;
-                $showPassword[] = $value->password;
-        }
-
-        $json = $this->response(array(
-            'username' => $show,
-            'password' => $showPassword,
-            'data' => null
-        ));
-
-        return $json;  
-    }
-
     
 }
