@@ -117,7 +117,10 @@ class Controller_lists extends Controller_Rest
         $userInToken = self::autorizate();
        
         if ($_POST['titleOld'] != $_POST['title'] ){
-            $lists = Model_Lists::find('all');
+            $lists = Model_Lists::find('first', array(
+                'where' => array(
+                    array('title', $_POST['titleOld'])
+                )));
             $lists->title = $_POST['title'];
             $lists->save();
 

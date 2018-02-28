@@ -92,6 +92,57 @@ class Controller_Songs extends Controller_Rest
         ));       
         return $json;
     }
+
+    public function post_changeNameSong()
+    {
+        if ( ! isset($_POST['nameOld'])) 
+        {
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame nameOld',
+                'data' => null
+            ));
+
+            return $json;
+        }
+
+        if ( ! isset($_POST['name'])) 
+        {
+            $json = $this->response(array(
+                'code' => 400,
+                'message' => 'parametro incorrecto, se necesita que el parametro se llame name',
+                'data' => null
+            ));
+
+            return $json;
+        }
+
+        $input = $_POST;
+        $userInToken = self::autorizate();
+       
+        if ($_POST['nameOld'] != $_POST['name'] ){
+            $songs = Model_Songs::find('first', array(
+                'where' => array(
+                    array('title', $_POST['nameOld'])
+                )));
+            $songs->title = $_POST['name'];
+            $songs->save();
+
+            $json = $this->response(array(
+                'code' => 200,
+                'message' => 'Nombre cancion modificado',
+                'data' => $songs
+            ));
+            return $json;
+        }else{
+            $json = $this->response(array(
+                'code' => 500,
+                'message' => 'No ha podido ser autenticado',
+                'data' => null
+            ));
+            return $json;
+        }  
+    }
    
 /*
     public function post_playSong()
